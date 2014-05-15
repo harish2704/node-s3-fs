@@ -1,0 +1,23 @@
+{
+  "name": "s3-fs",
+  "version": "0.0.1",
+  "description": "A wrapper around AWS.S3 which is compatible with Node.Js's fs module. Only a subset of functions are currenly implemented. No synchronous functions are implemented",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harish2704/node-s3-fs"
+  },
+  "keywords": [
+    "aws",
+    "s3",
+    "fs"
+  ],
+  "author": "Harish.K",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/harish2704/node-s3-fs/issues"
+  }
+}
