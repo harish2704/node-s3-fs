@@ -6,9 +6,9 @@ var env = process.env;
 s3Settings.accessKeyId= env.AWS_ACCESS_KEY_ID;
 s3Settings.secretAccessKey = env.AWS_SECRET_ACCESS_KEY;
 s3Settings.bucket = env.AWS_S3_BUCKET;
+s3Settings.endpoint = env.AWS_S3_ENDPOINT;
+s3Settings.useSsl = env.AWS_S3_USE_SSL? true: false;
 
-AWS.config.update(s3Settings);
-var S3 = new AWS.S3();
 
 function parseFname( fname ){
     if (fname[0] != '/') fname = '/' + fname;
@@ -23,9 +23,22 @@ function parseFname( fname ){
     return args;
 }
 
-var Fs = {};
+function parseConfig( data ){
 
-Fs.configure =AWS.config.update;
+    if(data.endpoint){
+        var endpoint = new AWS.Endpoint( data.endpoint );
+        data.endpoint = endpoint;
+    }
+    return data;
+}
+
+
+var Fs = {};
+var S3 = new AWS.S3( parseConfig(s3Settings) );
+
+Fs.configure = function(data){
+    S3.config.update( parseConfig( data) );
+}
 	
 
 Fs.exists = function(fname, cb){
