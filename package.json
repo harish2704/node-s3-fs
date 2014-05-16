@@ -10,6 +10,10 @@
     "type": "git",
     "url": "https://github.com/harish2704/node-s3-fs"
   },
+  "dependencies": {
+    "underscore": "*",
+    "aws-sdk": "*"
+  },
   "keywords": [
     "aws",
     "s3",
