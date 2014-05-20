@@ -23,28 +23,26 @@ function parseFname( fname ){
     return args;
 }
 
-function parseConfig( data ){
-
-    if(data.endpoint){
-        var endpoint = new AWS.Endpoint( data.endpoint );
-        data.endpoint = endpoint;
-    }
-    return data;
-}
 
 
 var Fs = {};
-var S3 = new AWS.S3( parseConfig(s3Settings) );
+var S3 = new AWS.S3(  );
 
 Fs.configure = function(data){
-    S3.config.update( parseConfig( data) );
+    if(data.endpoint){
+        var endpoint = new AWS.Endpoint( data.endpoint );
+        S3.endpoint = endpoint;
+        delete data.endpoint;
+    }
+    S3.config.update( data );
+    return S3;
 }
 	
+Fs.configure(s3Settings);
 
 Fs.exists = function(fname, cb){
     var args = parseFname( fname );
     S3.headObject( args, function(err, data){
-        // console.log( arguments );
         if (err) return cb();
         return cb(1);
     });
